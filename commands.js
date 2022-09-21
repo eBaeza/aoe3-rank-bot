@@ -1,13 +1,15 @@
 const { SlashCommandBuilder, Routes } = require('discord.js')
 const { REST } = require('@discordjs/rest')
-const { idBot, idServer, token } = require('./config.json')
+const idBot = process.env.ID_BOT
+const idServer = process.env.ID_SERVER
+const token = process.env.TOKEN
 
 const commands = [
     new SlashCommandBuilder()
         .setName('elo')
-        .setDescription('consult user elo and rank')
+        .setDescription('Consulta las estadísticas de un jugador de AOE III DE')
         .addStringOption(opt => opt.setName('player')
-            .setDescription('nombre jugador')
+            .setDescription('Nombre de usuario')
             .setRequired(true))
 ].map(c => c.toJSON())
 
@@ -15,7 +17,7 @@ const rest = new REST({
     version: '10'
 }).setToken(token)
 
-async function showCommands() {
+async function loadCommands() {
     try {
         await rest.put(Routes.applicationCommands(idBot, idServer), {
             body: commands
@@ -25,4 +27,6 @@ async function showCommands() {
     }
 }
 
-showCommands()
+module.exports = {
+    loadCommands
+}

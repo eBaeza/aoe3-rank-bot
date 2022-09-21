@@ -4,6 +4,8 @@
   "description": "Discord bot to consult AOE III DE Rank",
   "main": "main.js",
   "scripts": {
+    "start": "node main.js",
+    "dev": "cross-env NODE_ENV=development node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dori - https://github.com/eBaeza",
@@ -12,5 +14,9 @@
     "@discordjs/rest": "^1.1.0",
     "axios": "^0.27.2",
     "discord.js": "^14.3.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv-flow": "^3.2.0"
   }
 }
