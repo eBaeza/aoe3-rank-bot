@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, Routes } = require('discord.js')
-const { REST } = require('@discordjs/rest')
+const { SlashCommandBuilder, Routes, REST } = require('discord.js')
 const idBot = process.env.ID_BOT
 const token = process.env.TOKEN
 
@@ -12,9 +11,7 @@ const commands = [
             .setRequired(true))
 ].map(c => c.toJSON())
 
-const rest = new REST({
-    version: '10'
-}).setToken(token)
+const rest = new REST({ version: '10' }).setToken(token)
 
 async function loadCommands(idServer) {
     try {

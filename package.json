@@ -11,15 +11,24 @@
   "author": "Dori - https://github.com/eBaeza",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/rest": "^1.1.0",
     "axios": "^0.27.2",
     "discord.js": "^14.3.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "dotenv-flow": "^3.2.0"
+    "dotenv-flow": "^3.2.0",
+    "eslint": "^8.23.1"
   },
   "engines": {
     "node": ">=16.9.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eBaeza/aoe3-rank-bot.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/eBaeza/aoe3-rank-bot/issues"
+  },
+  "homepage": "https://github.com/eBaeza/aoe3-rank-bot#readme"
 }
