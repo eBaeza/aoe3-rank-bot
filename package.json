@@ -1,0 +1,16 @@
+{
+  "name": "aoe3-rank-bot",
+  "version": "1.0.0",
+  "description": "Discord bot to consult AOE III DE Rank",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dori - https://github.com/eBaeza",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^1.1.0",
+    "axios": "^0.27.2",
+    "discord.js": "^14.3.0"
+  }
+}
