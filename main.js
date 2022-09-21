@@ -9,8 +9,10 @@ const { loadCommands } = require('./commands')
 const token = process.env.TOKEN
 
 bot.once('ready', async () => {
-    console.log('Bot en línea y listo para iniciar')
-    await loadCommands()
+    console.log(`Inició sesión como ${bot.user.tag}`)
+    bot.guilds.cache.forEach(async (val, idx) => {
+        await loadCommands(idx)
+    })
 })
 
 bot.login(token)

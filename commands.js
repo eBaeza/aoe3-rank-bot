@@ -1,7 +1,6 @@
 const { SlashCommandBuilder, Routes } = require('discord.js')
 const { REST } = require('@discordjs/rest')
 const idBot = process.env.ID_BOT
-const idServer = process.env.ID_SERVER
 const token = process.env.TOKEN
 
 const commands = [
@@ -17,7 +16,7 @@ const rest = new REST({
     version: '10'
 }).setToken(token)
 
-async function loadCommands() {
+async function loadCommands(idServer) {
     try {
         await rest.put(Routes.applicationCommands(idBot, idServer), {
             body: commands
