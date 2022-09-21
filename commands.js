@@ -7,7 +7,7 @@ const token = process.env.TOKEN
 const commands = [
     new SlashCommandBuilder()
         .setName('elo')
-        .setDescription('Consulta las estadísticas de un jugador de AOE III DE')
+        .setDescription('Consulta las estadísticas de un jugador en 1 vs 1 de AOE III DE')
         .addStringOption(opt => opt.setName('player')
             .setDescription('Nombre de usuario')
             .setRequired(true))
