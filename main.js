@@ -39,7 +39,7 @@ bot.on('interactionCreate', async (interaction) => {
             const stats = await leaderboardSvc(player.value, modo.value);
 
             if (!stats) {
-                await interaction.reply(`😥 **Sin Resultados, intenta de nuevo**`).catch(error => { console.log(error) });
+                await interaction.reply(`😥 **Sin Resultados para "${player.value}", intenta de nuevo**`).catch(error => { console.log(error) });
                 return
             }
 
