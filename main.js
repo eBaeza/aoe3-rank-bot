@@ -11,10 +11,21 @@ const bot = new Client({ intents: GatewayIntentBits.Guilds })
 
 bot.once('ready', async () => {
     console.log(`Inició sesión como ${bot.user.tag}`)
-    bot.guilds.cache.forEach(async (val, idx) => {
-        await loadCommands(idx)
-    })
+
+    if (process.env.NODE_ENV !== 'development') {
+        bot.guilds.cache.forEach(async (val, idx) => {
+            await loadCommands(idx)
+        })
+    } else {
+        await loadCommands(process.env.TEST_SERVER_ID)
+    }
 })
+
+const modos = {
+    '1': '1v1 Supremacy',
+    '2': 'Team Supremacy',
+    '3': 'Treaty',
+}
 
 bot.on('interactionCreate', async (interaction) => {
     if (!interaction.isChatInputCommand) return
@@ -24,17 +35,20 @@ bot.on('interactionCreate', async (interaction) => {
 
         if (commandName === 'elo') {
             const player = options.get('player')
-            const stats = await leaderboardSvc(player.value);
+            const modo = options.get('modo')
+            const stats = await leaderboardSvc(player.value, modo.value);
 
             if (!stats) {
-                await interaction.reply(`😥 **Sin Resultados, intenta de nuevo**`);
+                await interaction.reply(`😥 **Sin Resultados, intenta de nuevo**`).catch(error => { console.log(error) });
                 return
             }
 
             const prefixStreak = stats.winStreak > 0 ? "+" : "";
 
             await interaction
-                .reply(`🙅🏽 **${stats.userName
+                .reply(`⚔️⚔️ **${
+                        modos[modo.value] || ''
+                    }** ⚔️⚔️\r\r🙅🏽 **${stats.userName
                     }**\r🎖️ **Rank**: #${stats.rank
                     }\r🕹️ **ELO**: ${stats.elo
                     }\r📈 **Racha**: ${prefixStreak}${stats.winStreak

@@ -10,8 +10,9 @@ var config = {
   }
 };
 
-async function leaderboarSvc(searchValue = '') {
+async function leaderboarSvc(searchValue = '', matchType = '1') {
   try {
+    config.data.matchType = matchType
     config.data.searchPlayer = searchValue.trim()
     const resp = await axios(config);
     if (!resp.data) return null
