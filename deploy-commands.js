@@ -5,31 +5,62 @@ const token = process.env.TOKEN
 const commands = [
     new SlashCommandBuilder()
         .setName('elo')
-        .setDescription('Consulta las estadísticas de un jugador en 1 vs 1 de AOE III DE')
+        .setDescription('Check the statistics of an AOE III DE player in the different game modes.')
+        .setDescriptionLocalizations({
+            'es-ES': 'Consulta las estadísticas de un jugador de AOE III DE en los diferentes modos de juego.'
+        })
         .addStringOption(opt => opt
             .setName('player')
-            .setDescription('Nombre de usuario')
+            .setDescription('Player name in AOE III DE')
+            .setNameLocalizations({
+                'es-ES': 'jugador'
+            })
+            .setDescriptionLocalizations({
+                'es-ES': 'Nombre del jugador en AOE III DE'
+            })
             .setRequired(true)
         )
         .addStringOption(opt => opt
             .setName('modo')
-            .setDescription('Modo de juego')
+            .setDescription('Game mode')
+            .setDescriptionLocalizations({
+                'es-ES': 'Modo de juego'
+            })
             .setRequired(true)
             .addChoices(
-                { name: '1v1 Supremacy', value: '1' },
-				{ name: 'Team Supremacy', value: '2' },
-				{ name: 'Treaty', value: '3' }
+                { 
+                    name: '1v1 Supremacy',
+                    name_localizations: {
+                        'es-ES': 'Supremacía 1 vs 1'
+                    },
+                    value: '1' 
+                },
+				{ 
+                    name: 'Team Supremacy',
+                    name_localizations: {
+                        'es-ES': 'Supremacía en Equipo'
+                    },
+                    value: '2' 
+                },
+				{ 
+                    name: 'Treaty',
+                    name_localizations: {
+                        'es-ES': 'Tratado'
+                    },
+                    value: '3'
+                 }
             )
         )
 ].map(c => c.toJSON())
 
 const rest = new REST({ version: '10' }).setToken(token)
 
-async function loadCommands(idServer) {
+async function loadCommands() {
     try {
-        await rest.put(Routes.applicationCommands(idBot, idServer), {
-            body: commands
-        })
+        await rest.put(
+            Routes.applicationCommands(idBot), 
+            { body: commands }
+        )
     } catch (error) {
         console.error('Error' + error)
     }
