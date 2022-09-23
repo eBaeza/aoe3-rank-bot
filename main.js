@@ -34,7 +34,7 @@ const replyEn = (stats, modo) => {
     }**\r🎖️ **Rank**: #${stats.rank
     }\r🕹️ **ELO**: ${stats.elo
     }\r📈 **Win Streak**: ${prefixStreak}${stats.winStreak
-    }\r📊 **Win Percentage**: ${stats.winPercent}%`
+    }\r📊 **Win Rate**: ${stats.winPercent}%`
 }
 
 const replyEs = (stats, modo) => {
@@ -71,16 +71,15 @@ bot.on('interactionCreate', async (interaction) => {
             } else {
                 await interaction
                     .reply(
-                        interaction.locale === 'es-ES' ? replyEs(stats, modo.value) : replyEn(stats, modo.value)
+                        interaction.locale === 'es-ES' ? 
+                            replyEs(stats, modo.value) : 
+                            replyEn(stats, modo.value)
                     )
                     .catch(error => { console.log(error) });
             }
 
             if (player.value.toLowerCase().trim() === 'kaiserklein') {
-                await interaction
-                    .followUp(`***I need more baguettes!*** 🥖🥖🥖`)
-                .catch(error => { console.log(error) });
-
+                await interaction.followUp(`*I need more baguettes!* 🥖🥖🥖`).catch(error => { console.log(error) });
                 return
             }
 
