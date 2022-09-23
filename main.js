@@ -67,14 +67,23 @@ bot.on('interactionCreate', async (interaction) => {
                         `😥 No results for **${player.value}** in **${modosEn[modo.value]}**, try again.`
                     )
                     .catch(error => { console.log(error) });
+                
+            } else {
+                await interaction
+                    .reply(
+                        interaction.locale === 'es-ES' ? replyEs(stats, modo.value) : replyEn(stats, modo.value)
+                    )
+                    .catch(error => { console.log(error) });
+            }
+
+            if (player.value.toLowerCase().trim() === 'kaiserklein') {
+                await interaction
+                    .followUp(`***I need more baguettes!*** 🥖🥖🥖`)
+                .catch(error => { console.log(error) });
+
                 return
             }
 
-            await interaction
-                .reply(
-                    interaction.locale === 'es-ES' ? replyEs(stats, modo.value) : replyEn(stats, modo.value)
-                )
-                .catch(error => { console.log(error) });
         }
     } catch (error) {
         console.log('Error ' + error)
