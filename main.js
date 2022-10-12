@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const { Client, GatewayIntentBits } = require('discord.js')
 const { loadCommands } = require('./deploy-commands')
-const leaderboardSvc = require('./leaderboard.service')
+const leaderboarSvc = require('./hellpunch.service')
 const token = process.env.TOKEN
 
 const bot = new Client({ intents: GatewayIntentBits.Guilds })
@@ -26,26 +26,28 @@ const modosEs = {
     '3': 'Tratado',
 }
 
+const winRate = (wins, losses) => (( wins/(wins+losses) ) * 100).toFixed(2)
+
 const replyEn = (stats, modo) => {
-    const prefixStreak = stats.winStreak > 0 ? "+" : "";
+    const prefixStreak = stats.streak > 0 ? "+" : "";
     
-    return `⚔️⚔️ **${ modosEn[modo] || ''
-    }** ⚔️⚔️\r\r🙅🏽 **${stats.userName
+    return `⚔️ **${ modosEn[modo] || ''
+    }** ⚔️\r\r🙅🏽 **${stats.name
     }**\r🎖️ **Rank**: #${stats.rank
     }\r🕹️ **ELO**: ${stats.elo
-    }\r📈 **Win Streak**: ${prefixStreak}${stats.winStreak
-    }\r📊 **Win Rate**: ${stats.winPercent}%`
+    }\r📈 **Win Streak**: ${prefixStreak}${stats.streak
+    }\r📊 **Win Rate**: ${winRate(stats.wins, stats.losses)}%`
 }
 
 const replyEs = (stats, modo) => {
-    const prefixStreak = stats.winStreak > 0 ? "+" : "";
+    const prefixStreak = stats.streak > 0 ? "+" : "";
     
-    return `⚔️⚔️ **${ modosEs[modo] || ''
-    }** ⚔️⚔️\r\r🙅🏽 **${stats.userName
+    return `⚔️ **${ modosEs[modo] || ''
+    }** ⚔️\r\r🙅🏽 **${stats.name
     }**\r🎖️ **Rank**: #${stats.rank
     }\r🕹️ **ELO**: ${stats.elo
-    }\r📈 **Racha**: ${prefixStreak}${stats.winStreak
-    }\r📊 **Ratio**: ${stats.winPercent}%`
+    }\r📈 **Racha**: ${prefixStreak}${stats.streak
+    }\r📊 **Ratio**: ${winRate(stats.wins, stats.losses)}%`
 }
 
 bot.on('interactionCreate', async (interaction) => {
@@ -57,7 +59,7 @@ bot.on('interactionCreate', async (interaction) => {
         if (commandName === 'elo') {
             const player = options.get('player')
             const modo = options.get('modo')
-            const stats = await leaderboardSvc(player.value, modo.value);
+            const stats = await leaderboarSvc(player.value, modo.value);
 
             if (!stats) {
                 await interaction
@@ -80,6 +82,11 @@ bot.on('interactionCreate', async (interaction) => {
 
             if (player.value.toLowerCase().trim() === 'kaiserklein') {
                 await interaction.followUp(`*I need more baguettes!* 🥖🥖🥖`).catch(error => { console.log(error) });
+                return
+            }
+
+            if (player.value.toLowerCase().trim() === 'ezad') {
+                await interaction.followUp(`*Balloon!* 🎈🎈🎈`).catch(error => { console.log(error) });
                 return
             }
 

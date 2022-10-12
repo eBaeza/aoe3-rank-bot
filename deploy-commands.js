@@ -41,14 +41,7 @@ const commands = [
                         'es-ES': 'Supremacía en Equipo'
                     },
                     value: '2' 
-                },
-				{ 
-                    name: 'Treaty',
-                    name_localizations: {
-                        'es-ES': 'Tratado'
-                    },
-                    value: '3'
-                 }
+                }
             )
         )
 ].map(c => c.toJSON())
