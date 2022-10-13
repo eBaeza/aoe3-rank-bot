@@ -3,15 +3,14 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const { Client, GatewayIntentBits } = require('discord.js')
-const { loadCommands } = require('./deploy-commands')
-const leaderboarSvc = require('./leaderboard.service')
+// const { loadCommands } = require('./deploy-commands')
+const leaderboarSvc = require('./hellpunch.service')
 const token = process.env.TOKEN
 
 const bot = new Client({ intents: GatewayIntentBits.Guilds })
 
 bot.once('ready', async () => {
     console.log(`Inició sesión como ${bot.user.tag}`)
-    await loadCommands()
 })
 
 const modosEn = {
@@ -29,25 +28,27 @@ const modosEs = {
 const winRate = (wins, losses) => (( wins/(wins+losses) ) * 100).toFixed(2)
 
 const replyEn = (stats, modo) => {
-    const prefixStreak = stats.winStreak > 0 ? "+" : "";
+    const prefixStreak = stats.streak > 0 ? "📈" : "📉";
     
     return `⚔️ **${ modosEn[modo] || ''
-    }** ⚔️\r\r🙅🏽 **${stats.userName
+    }** ⚔️\r\r🙅🏽 **${stats.name
     }**\r🎖️ **Rank**: #${stats.rank
-    }\r🕹️ **ELO**: ${stats.elo
-    }\r📈 **Win Streak**: ${prefixStreak}${stats.winStreak
-    }\r📊 **Win Rate**: ${stats.winPercent}%`
+    }\r🛡️ **ELO**: ${stats.elo
+    }\r${prefixStreak} **Win Streak**: ${stats.streak
+    }\r📊 **Win Rate**: ${winRate(stats.wins, stats.losses)
+    }%\r🕹️ **Games**: ${stats.wins + stats.losses}`
 }
 
 const replyEs = (stats, modo) => {
-    const prefixStreak = stats.winStreak > 0 ? "+" : "";
+    const prefixStreak = stats.streak > 0 ? "📈" : "📉";
     
     return `⚔️ **${ modosEs[modo] || ''
-    }** ⚔️\r\r🙅🏽 **${stats.userName
+    }** ⚔️\r\r🙅🏽 **${stats.name
     }**\r🎖️ **Rank**: #${stats.rank
-    }\r🕹️ **ELO**: ${stats.elo
-    }\r📈 **Racha**: ${prefixStreak}${stats.winStreak
-    }\r📊 **Ratio**: ${stats.winPercent}%`
+    }\r🛡️ **ELO**: ${stats.elo
+    }\r${prefixStreak} **Racha**: ${stats.streak
+    }\r📊 **Ratio**: ${winRate(stats.wins, stats.losses)
+    }%\r🕹️ **Partidas**: ${stats.wins + stats.losses}`
 }
 
 bot.on('interactionCreate', async (interaction) => {
