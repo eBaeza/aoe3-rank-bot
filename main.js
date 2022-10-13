@@ -31,15 +31,15 @@ const replyEn = (stats, modo, paramMode) => {
    
 
     if (paramMode === 'find'){
-
-        const prefixStreak = stats.streak > 0 ? "📈" : "📉";
+        const statsFirst = [stats];
+        const prefixStreak = statsFirst.streak > 0 ? "📈" : "📉";
         return `⚔️ **${ modosEn[modo] || ''
-        }** ⚔️\r\r🙅🏽 **${stats.name
-        }**\r🎖️ **Rank**: #${stats.rank
-        }\r🛡️ **ELO**: ${stats.elo
-        }\r🏯  **CLAN**: ${stats.clan}\r${prefixStreak} **Win Streak**: ${stats.streak
-        }\r📊 **Win Rate**: ${winRate(stats.wins, stats.losses)
-        }%\r🕹️ **Games**: ${stats.wins + stats.losses}`;
+        }** ⚔️\r\r🙅🏽 **${statsFirst.name
+        }**\r🎖️ **Rank**: #${statsFirst.rank
+        }\r🛡️ **ELO**: ${statsFirst.elo
+        }\r🏯  **CLAN**: ${statsFirst.clan}\r${prefixStreak} **Win Streak**: ${statsFirst.streak
+        }\r📊 **Win Rate**: ${winRate(statsFirst.wins, statsFirst.losses)
+        }%\r🕹️ **Games**: ${statsFirst.wins + statsFirst.losses}`;
 
     }
     else {
@@ -64,14 +64,15 @@ const replyEn = (stats, modo, paramMode) => {
 const replyEs = (stats,  modo, paramMode) => {
 
     if (paramMode === 'find'){
-    const prefixStreak = stats.streak > 0 ? "📈" : "📉";
+    const statsFirst = [stats];
+    const prefixStreak = statsFirst.streak > 0 ? "📈" : "📉";
     return `⚔️ **${ modosEs[modo] || ''
-    }** ⚔️\r\r🙅🏽 **${stats.name
-    }**\r🎖️ **Rank**: #${stats.rank
-    }\r🛡️ **ELO**: ${stats.elo
-    }\r🏯 **CLAN**: ${stats.clan}\r${prefixStreak} **Racha**: ${stats.streak
-    }\r📊 **Ratio**: ${winRate(stats.wins, stats.losses)
-    }%\r🕹️ **Partidas**: ${stats.wins + stats.losses}`;}
+    }** ⚔️\r\r🙅🏽 **${statsFirst.name
+    }**\r🎖️ **Rank**: #${statsFirst.rank
+    }\r🛡️ **ELO**: ${statsFirst.elo
+    }\r🏯 **CLAN**: ${statsFirst.clan}\r${prefixStreak} **Racha**: ${statsFirst.streak
+    }\r📊 **Ratio**: ${winRate(statsFirst.wins, statsFirst.losses)
+    }%\r🕹️ **Partidas**: ${statsFirst.wins + statsFirst.losses}`;}
     else{
         var allNames;
         const totDoc = stats.length;
@@ -100,7 +101,7 @@ bot.on('interactionCreate', async (interaction) => {
    
             const player =  commandName === 'clanFind' ? options.get('clan') : options.get('player') ;
             const modo = options.get('modo')
-            const stats = await leaderboarSvc(player.value, modo.value, commandName);
+            const stats = await leaderboarSvc(commandName === 'search' ? player.value.split(' ')[0] : player.value, modo.value, commandName);
 
             if (!stats) {
                 await interaction
