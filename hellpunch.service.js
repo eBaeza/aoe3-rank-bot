@@ -14,13 +14,21 @@ const config = {
   }
 };
 
-async function leaderboarSvc(searchValue = '', mode) {
+async function leaderboarSvc(searchValue = '', mode, paramMode) {
   try {
     config.url = url(mode)
-    config.params['queries[0]'] = `search(name, ("${searchValue.trim()}"))`
+    if (paramMode === 'find') {
+      config.params['queries[0]'] = `equal(name, ${searchValue})`;
+    }
+    else if (paramMode === 'search') {
+      config.params['queries[0]'] = `search(name, ${searchValue})`;
+    }
+    else{
+      config.params['queries[0]'] = `equal(clan, ${searchValue})`;
+    }
     const resp = await axios(config);
     if (!resp.data) return null
-    const [stats] = resp.data.documents;
+    const stats = resp.data.documents;
     return stats;
   } catch (error) {
     console.log(error);
