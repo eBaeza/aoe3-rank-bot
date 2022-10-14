@@ -13,33 +13,26 @@ const modosEs = {
 }
 
 const winRate = (wins, losses) => ((wins / (wins + losses)) * 100).toFixed(2)
-
+const defaultAvatar = 'https://aoe3de-deck-builder.herokuapp.com/assets/revolution_guns.png'
 
 const generateProfileEmbed = (stats, modo) => {
+    const clan = stats.clan ? `[${stats.clan}] ` : ''
+
     const embed = new EmbedBuilder()
         .setColor(0xebc837)
-        .setTitle(`${stats.name}`)
+        .setTitle(`${clan}${stats.name}`)
         .setAuthor({ name: `⚔️ ${modosEn[modo] || ''} ⚔️` })
-        .setThumbnail(stats.avatar || 'https://storage.googleapis.com/aoe3-de-resources/resources/art/units/natives/europeans/royal_musketeer_portrait.png')
+        .setThumbnail(stats.avatar || defaultAvatar)
 
-    if (stats.clan) {
-        embed.addFields({ name: 'Clan', value: `🏯 ${stats.clan}` })
-    }
-
-    embed.addFields(
-        { name: `Rank`, value: `🎖️ #${stats.rank}`, inline: true },
-        { name: 'ELO', value: `🛡️ ${stats.elo}`, inline: true },
-        { name: '\u200B', value: '\u200B', inline: true },
-    )
+    embed
         .addFields(
-            { name: `Win Rate`, value: `📊 ${winRate(stats.wins, stats.losses)}%`, inline: true },
-            { name: `Streak`, value: `${stats.streak > 0 ? "📈" : "📉"} ${stats.streak > 0 ? "+" : ""}${stats.streak}`, inline: true },
-            { name: '\u200B', value: '\u200B', inline: true },
-        )
-        .addFields(
-            { name: `Games`, value: `🕹️ ${stats.wins + stats.losses}`, inline: true },
-            { name: `Wins`, value: `🟢 ${stats.wins}`, inline: true },
-            { name: `Losses`, value: `🔴 ${stats.losses}`, inline: true },
+            { name: 'Rank', value: `🎖️ #${stats.rank}`, inline: true },
+            { name: 'ELO', value: `🛡️ ${stats.elo}`, inline: true },
+            { name: 'Streak', value: `${stats.streak > 0 ? "📈" : "📉"} ${stats.streak > 0 ? "+" : ""}${stats.streak}`, inline: true },
+            { name: 'Wins', value: `🟢 ${stats.wins}`, inline: true },
+            { name: 'Losses', value: `🔴 ${stats.losses}`, inline: true },
+            { name: 'Games', value: `🕹️ ${stats.wins + stats.losses}`, inline: true },
+            { name: 'Win Rate', value: `📊 ${winRate(stats.wins, stats.losses)}%`, inline: true },
         )
 
     return embed
