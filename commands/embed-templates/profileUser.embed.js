@@ -20,7 +20,7 @@ const generateProfileEmbed = (stats, modo) => {
         .setColor(0xebc837)
         .setTitle(`${stats.name}`)
         .setAuthor({ name: `⚔️ ${modosEn[modo] || ''} ⚔️` })
-        .setThumbnail('https://storage.googleapis.com/aoe3-de-resources/resources/art/units/natives/europeans/royal_musketeer_portrait.png')
+        .setThumbnail(stats.avatar || 'https://storage.googleapis.com/aoe3-de-resources/resources/art/units/natives/europeans/royal_musketeer_portrait.png')
 
     if (stats.clan) {
         embed.addFields({ name: 'Clan', value: `🏯 ${stats.clan}` })
