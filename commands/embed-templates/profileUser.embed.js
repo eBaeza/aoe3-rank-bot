@@ -1,4 +1,8 @@
 const { EmbedBuilder } = require('discord.js')
+const TimeAgo = require('javascript-time-ago')
+const en = require('javascript-time-ago/locale/en')
+TimeAgo.addDefaultLocale(en)
+const timeAgo = new TimeAgo('en-US')
 
 const modosEn = {
     '1': '1v1 Supremacy',
@@ -34,6 +38,7 @@ const generateProfileEmbed = (stats, modo) => {
             { name: 'Games', value: `🕹️ ${stats.wins + stats.losses}`, inline: true },
             { name: 'Win Rate', value: `📊 ${winRate(stats.wins, stats.losses)}%`, inline: true },
         )
+        .setFooter({ 'text': `Last online ${timeAgo.format(new Date(stats.lastOnline * 1000))}` })
 
     return embed
 }
