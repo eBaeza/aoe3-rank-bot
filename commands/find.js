@@ -5,7 +5,7 @@ const { avatarURL } = require('../services/steamSummary')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('elo')
+        .setName('find')
         .setDescription('Check the statistics of an AOE III DE player in the different game modes.')
         .setDescriptionLocalizations({
             'es-ES': 'Consulta las estadísticas de un jugador de AOE III DE en los diferentes modos de juego.'
@@ -42,16 +42,23 @@ module.exports = {
                         'es-ES': 'Supremacía en Equipo'
                     },
                     value: '2'
+                },
+                {
+                    name: 'Treaty',
+                    name_localizations: {
+                        'es-ES': 'Tratado'
+                    },
+                    value: '3'
                 }
             )
         ),
     async execute(interaction) {
         const { commandName, options } = interaction
 
-        if (commandName === 'elo') {
+        if (commandName === 'find') {
             const player = options.get('player')
             const modo = options.get('modo')
-            const stats = await leaderboarSvc(player.value, modo.value);
+            const stats = [await leaderboarSvc(player.value, modo.value, commandName)];
 
             if (!stats) {
                 await interaction
@@ -67,7 +74,7 @@ module.exports = {
                 stats.avatar = avatar
                 await interaction
                     .reply(
-                        { embeds: [generateProfileEmbed(stats, modo.value)] }
+                        { embeds: [generateProfileEmbed(stats, modo.value, commandName)] }
                     )
                     .catch(error => { console.log(error) });
             }
