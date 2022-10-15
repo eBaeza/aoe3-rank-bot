@@ -56,7 +56,8 @@ const generateProfileEmbed = (stats, modo, commandName) => {
 
         for(let i = 0; i < totDoc; i++) 
         {
-            embed.addFields(
+            embed
+            .addFields(
                 {
                     value: `🙅🏽 ` + stats[i].name + `**ELO: **` + stats[i].elo
                 },
@@ -67,7 +68,6 @@ const generateProfileEmbed = (stats, modo, commandName) => {
         {
             embed
             .setThumbnail(defaultSearchAvatar)
-     
         }
         else
         {
@@ -75,7 +75,8 @@ const generateProfileEmbed = (stats, modo, commandName) => {
             .setThumbnail(defaultClanAvatar)
         }
 
-        embed.setFooter({
+        embed
+        .setFooter({
             'text' : `Use the Find command for more details on the players`
         })
 
