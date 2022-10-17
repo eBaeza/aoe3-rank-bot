@@ -6,7 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Routes, REST } = require('discord.js')
 const idBot = process.env.ID_BOT
-const token = process.env.TOKEN
+const token = process.env.TOKEN_BOT
 
 const commands = [];
 const commandsPath = path.join(__dirname, 'commands');

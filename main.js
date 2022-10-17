@@ -5,7 +5,7 @@ if (process.env.NODE_ENV === 'development') {
 const fs = require('node:fs')
 const path = require('node:path')
 const { Client, GatewayIntentBits, Collection } = require('discord.js')
-const token = process.env.TOKEN
+const token = process.env.TOKEN_BOT
 
 const bot = new Client({ intents: GatewayIntentBits.Guilds })
 

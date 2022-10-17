@@ -8,20 +8,19 @@ const config = {
     'x-appwrite-project': process.env.APPWRITE_PROJECT,
     'x-appwrite-key': process.env.APPWRITE_KEY
   },
-  params: {
-    'queries[0]': 'search(name, (""))'
-  },
+  params: {},
   transformResponse: [data  => data]
 };
 
-async function leaderboarSvc(searchValue = '', mode) {
+async function leaderboarSvc(searchValue = '', { modo = '1', field = 'name' }) {
   try {
-    config.url = url(mode)
-    config.params['queries[0]'] = `search(name, ("${searchValue.trim()}"))`
-    const resp = await axios.get(url(mode), config);
+    config.url = url(modo)
+    config.params['queries[0]'] = `search(${field}, ("${searchValue.trim()}"))`
+    config.params['queries[1]'] = `orderDesc("elo")`
+    const resp = await axios.get(url(modo), config);
     if (!resp.data) return null
-    const [stats] = JSONbig.parse(resp.data).documents;
-    return stats;
+    const players = JSONbig.parse(resp.data).documents;
+    return players;
   } catch (error) {
     console.log(error);
     return null;

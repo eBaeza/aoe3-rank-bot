@@ -1,20 +1,9 @@
 const { EmbedBuilder } = require('discord.js')
 const TimeAgo = require('javascript-time-ago')
+const { modosEn } = require('../../constants')
 const en = require('javascript-time-ago/locale/en')
 TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')
-
-const modosEn = {
-    '1': '1v1 Supremacy',
-    '2': 'Team Supremacy',
-    '3': 'Treaty',
-}
-
-const modosEs = {
-    '1': 'Supremacía 1 vs 1',
-    '2': 'Supremacía en Equipo',
-    '3': 'Tratado',
-}
 
 const winRate = (wins, losses) => ((wins / (wins + losses)) * 100).toFixed(2)
 const defaultAvatar = 'https://aoe3de-deck-builder.herokuapp.com/assets/revolution_guns.png'
@@ -44,7 +33,5 @@ const generateProfileEmbed = (stats, modo) => {
 }
 
 module.exports = {
-    modosEs,
-    modosEn,
     generateProfileEmbed,
 }
