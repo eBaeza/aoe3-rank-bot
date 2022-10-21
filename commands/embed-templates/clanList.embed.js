@@ -15,9 +15,9 @@ const generateClanListEmbed = (players, modo) => {
 
     const fields = []
 
-    players.forEach(player => {
+    players.forEach((player, index) =>  {
         fields.push({
-            name: `🙅🏽 ${player?.name}`,
+            name: `${index}) ${player?.name}`,
             value: `🎖️ #${player.rank} 🛡️ ELO: ${player?.elo}`
         })
     })
