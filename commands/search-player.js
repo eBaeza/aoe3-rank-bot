@@ -1,7 +1,9 @@
-const { SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder } = require('discord.js')
+const { SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder, ComponentType } = require('discord.js')
 const leaderboarSvc = require('../services/hellpunch.service')
 const { GAME_MODES, modosEn, modosEs } = require('../constants')
 const { generateResultsListEmbed } = require('../embed-templates/resultsList.embed')
+const { avatarURL } = require('../services/steamSummary')
+const { generateProfileEmbed } = require('../embed-templates/profileUser.embed')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -51,7 +53,7 @@ module.exports = {
                         .addOptions(
                             ...players.map((p, i) => ({
                                 label: `${i + 1}) ${p.name}`,
-                                value: `${p.name}_${modo.value}`,
+                                value: `${i}`,
                             })),
                         ),
                 );
@@ -63,7 +65,29 @@ module.exports = {
                 })
                 .catch(error => { console.log(error) });
 
+            const filterCollector = i => i.user.id === interaction.user.id && i.customId === 'selectedPlayer'
+            const collector = interaction.channel.createMessageComponentCollector({
+                filter: filterCollector,
+                componentType: ComponentType.SelectMenu,
+                time: 15000
+            });
 
+            collector.on('collect', async i => {
+                const [index] = i.values
+                const stats = players[+index]
+                const avatar = await avatarURL(stats.steamId)
+                stats.avatar = avatar
+
+                await i.update({
+                    content: `Player found by "_**${player.value}**_" search term`,
+                    embeds: [generateProfileEmbed(stats, modo.value)],
+                    components: []
+                });
+            });
+
+            collector.on('end', collected => {
+                console.log(`Collected ${collected.size} interactions.`);
+            });
         }
     }
 }
