@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js')
 const leaderboarSvc = require('../services/hellpunch.service')
-const { generateProfileEmbed } = require('./embed-templates/profileUser.embed')
+const { generateProfileEmbed } = require('../embed-templates/profileUser.embed')
 const { modosEn, modosEs, GAME_MODES } = require('../constants')
 const { avatarURL } = require('../services/steamSummary')
 

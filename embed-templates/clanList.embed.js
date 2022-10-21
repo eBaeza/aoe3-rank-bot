@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js')
-const { modosEn } = require('../../constants')
+const { modosEn } = require('../constants')
 
 
 const defaultAvatar = 'https://storage.googleapis.com/aoe3-de-resources/resources/images/icons/home_city/hc_bakufu.png'
@@ -15,9 +15,9 @@ const generateClanListEmbed = (players, modo) => {
 
     const fields = []
 
-    players.forEach((player, index) =>  {
+    players.forEach((player, idx) => {
         fields.push({
-            name: `${index}) ${player?.name}`,
+            name: `${idx + 1}. ${player?.name}`,
             value: `🎖️ #${player.rank} 🛡️ ELO: ${player?.elo}`
         })
     })

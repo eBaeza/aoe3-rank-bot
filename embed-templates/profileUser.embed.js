@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require('discord.js')
 const TimeAgo = require('javascript-time-ago')
-const { modosEn } = require('../../constants')
+const { modosEn } = require('../constants')
 const en = require('javascript-time-ago/locale/en')
 TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')

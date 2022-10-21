@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js')
 const leaderboarSvc = require('../services/hellpunch.service')
 const { GAME_MODES, modosEn, modosEs } = require('../constants')
-const { generateClanListEmbed } = require('./embed-templates/clanList.embed')
+const { generateClanListEmbed } = require('../embed-templates/clanList.embed')
 
 module.exports = {
     data: new SlashCommandBuilder()
