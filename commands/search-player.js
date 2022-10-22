@@ -34,7 +34,7 @@ module.exports = {
         const modo = interaction.options.get('modo')
         const players = await leaderboarSvc(player.value, { searchPlayer: true, modo: modo.value });
 
-        if (!player) {
+        if (!players.length) {
             await interaction
                 .reply(
                     interaction.locale === 'es-ES' ?
@@ -42,9 +42,7 @@ module.exports = {
                         `😥 No results for **${player.value}** in **${modosEn[modo.value]}**, try again.`
                 )
                 .catch(error => { console.log(error) });
-
         } else {
-
             const row = new ActionRowBuilder()
                 .addComponents(
                     new SelectMenuBuilder()
