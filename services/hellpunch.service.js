@@ -16,9 +16,9 @@ async function leaderboarSvc(searchValue = '', { modo = '1vs1', field = 'name', 
     config.url = url(modo)
     config.params['select'] = `*`
     if (searchPlayer) {
-      config.params[`search(${field}`] = `ilike.%${searchValue}%")`
+      config.params[`${field}`] = `ilike.%${searchValue}%`
     } else {
-      config.params[`search(${field}`] = `ilike.%${searchValue}%"))`
+      config.params[`${field}`] = `ilike.%${searchValue}%`
     }
     config.params['order'] = `rank`
     const resp = await axios.get(url(modo), config);
