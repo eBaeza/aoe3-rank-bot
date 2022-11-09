@@ -22,8 +22,30 @@ async function leaderboarSvc(searchValue = '', { modo = '1vs1', field = 'name', 
     }
     config.params['order'] = `rank`
     const resp = await axios.get(url(modo), config);
-    if (!resp.data) return null
+    if (!resp) return null
+/*TODO THE RESONPONSE NOW IS A LIST   
+Searching for doribalam yields this result
+[
+  {
+    "rank": 478,
+    "elo": 1421,
+    "name": "DoriBalam",
+    "clan": "MUNDO",
+    "region": 3,
+    "steamId": 2533274882505213,
+    "gameId": 5718291,
+    "internalNum": 1324567,
+    "wins": 649,
+    "losses": 663,
+    "drops": 4,
+    "streak": 4,
+    "lastOnline": "1668015539"
+  }
+]
+
+*/
     const players = JSONbig.parse(resp.data).documents;
+
     return players;
   } catch (error) {
     console.log(error);
