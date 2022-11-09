@@ -4,21 +4,21 @@ const GAME_MODES = [
         name_localizations: {
             'es-ES': 'Supremacía 1 vs 1'
         },
-        value: '1'
+        value: '1vs1'
     },
     {
         name: 'Team Supremacy',
         name_localizations: {
             'es-ES': 'Supremacía en Equipo'
         },
-        value: '2'
+        value: 'teamSupremacy'
     },
     {
         name: 'Treaty',
         name_localizations: {
             'es-ES': 'Tratado'
         },
-        value: '3'
+        value: 'treaty'
     }
 ]
 

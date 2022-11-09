@@ -1,26 +1,26 @@
 const axios = require("axios");
 const JSONbig = require('json-bigint')
 
-const url = (mode = '1') => `https://deck.aoe3explorer.com/v1/databases/leaderboards/collections/${mode}/documents`
+const url = (mode = '1vs1') => `https://decks.aoe3explorer.com/v1/${mode}`
 
 const config = {
   headers: {
-    'x-appwrite-project': process.env.APPWRITE_PROJECT,
-    'x-appwrite-key': process.env.APPWRITE_KEY
+    'apikey': process.env.API_KEY,
   },
   params: {},
   transformResponse: [data  => data]
 };
 
-async function leaderboarSvc(searchValue = '', { modo = '1', field = 'name', searchPlayer = false }) {
+async function leaderboarSvc(searchValue = '', { modo = '1vs1', field = 'name', searchPlayer = false }) {
   try {
     config.url = url(modo)
+    config.params['select'] = `*`
     if (searchPlayer) {
-      config.params['queries[0]'] = `search(${field}, "${searchValue.trim()}")`
+      config.params[`search(${field}`] = `ilike.%${searchValue}%")`
     } else {
-      config.params['queries[0]'] = `search(${field}, ("${searchValue.trim()}"))`
+      config.params[`search(${field}`] = `ilike.%${searchValue}%"))`
     }
-    config.params['queries[1]'] = `orderDesc("elo")`
+    config.params['order'] = `rank`
     const resp = await axios.get(url(modo), config);
     if (!resp.data) return null
     const players = JSONbig.parse(resp.data).documents;
