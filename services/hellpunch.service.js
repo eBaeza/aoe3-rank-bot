@@ -44,7 +44,7 @@ Searching for doribalam yields this result
 ]
 
 */
-    const players = JSONbig.parse(resp.data).documents;
+    //const players = JSONbig.parse(resp.data).documents;
 
     return players;
   } catch (error) {
