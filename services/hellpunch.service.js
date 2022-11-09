@@ -1,7 +1,7 @@
 const axios = require("axios");
 const JSONbig = require('json-bigint')
 
-const url = (mode = '1vs1') => `https://decks.aoe3explorer.com/v1/${mode}`
+const url = (mode = '1vs1') => `https://decks.aoe3explorer.com/rest/v1/${mode}`
 
 const config = {
   headers: {
