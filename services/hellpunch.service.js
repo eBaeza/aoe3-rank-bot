@@ -6,18 +6,19 @@ const config = {
     'apikey': process.env.API_KEY,
   },
   params: {},
-  transformResponse: [data  => data]
+  transformResponse: [data => data]
 };
 
 async function leaderboarSvc(searchValue = '', { modo = '1vs1', field = 'name' }) {
   try {
     const url = `${process.env.SERVICE_URL}${modo}`
-    config.params['select'] = `*`
-    config.params[`${field}`] = `ilike.%${searchValue}%`
-    config.params['order'] = `rank`
-    
-    const resp = await axios.get(url, config);
-    
+    const cfg = { ...config }
+    cfg.params['select'] = `*`
+    cfg.params[`${field}`] = `ilike.%${searchValue}%`
+    cfg.params['order'] = `rank`
+
+    const resp = await axios.get(url, { ...cfg });
+
     if (!resp.data) return null
 
     const players = JSONbig.parse(resp.data);
