@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require('discord.js')
 const { modosEn } = require('../constants')
-const defaultAvatar = 'https://firebasestorage.googleapis.com/v0/b/aoe3-companion.appspot.com/o/resources%2Fimages%2Ficons%2Ftechs%2Fnative%2Finformants.png?alt=media'
+const defaultAvatar = 'https://aoe3-companion.web.app/assets/discord-rank-bot/resources_images_icons_techs_native_informants.png'
 
 const generateResultsListEmbed = (searchTerm, players, modo) => {
     const embed = new EmbedBuilder()
