@@ -32,7 +32,7 @@ module.exports = {
     async execute(interaction) {
         const player = interaction.options.get('player')
         const modo = interaction.options.get('modo')
-        const players = await leaderboarSvc(player.value, { searchPlayer: true, modo: modo.value });
+        const players = await leaderboarSvc(player.value, { modo: modo.value });
 
         if (!players.length) {
             await interaction
