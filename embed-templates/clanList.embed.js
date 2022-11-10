@@ -1,8 +1,6 @@
 const { EmbedBuilder } = require('discord.js')
 const { modosEn } = require('../constants')
-
-
-const defaultAvatar = 'https://storage.googleapis.com/aoe3-de-resources/resources/images/icons/home_city/hc_bakufu.png'
+const defaultAvatar = 'https://firebasestorage.googleapis.com/v0/b/aoe3-companion.appspot.com/o/resources%2Fimages%2Ficons%2Ftechs%2Fnative%2Fold_ways.png?alt=media'
 
 const generateClanListEmbed = (players, modo) => {
     const clanName = players[0].clan

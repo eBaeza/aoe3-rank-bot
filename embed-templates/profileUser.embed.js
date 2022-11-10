@@ -6,7 +6,7 @@ TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
 const winRate = (wins, losses) => ((wins / (wins + losses)) * 100).toFixed(2)
-const defaultAvatar = 'https://aoe3de-deck-builder.herokuapp.com/assets/revolution_guns.png'
+const defaultAvatar = 'https://firebasestorage.googleapis.com/v0/b/aoe3-companion.appspot.com/o/resources%2Fimages%2Ficons%2Ftechs%2Fmexicans%2Fguerrilla_tactics.png?alt=media'
 
 const generateProfileEmbed = (stats, modo) => {
     const clan = stats.clan ? `[${stats.clan}] ` : ''
