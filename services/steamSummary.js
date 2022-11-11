@@ -1,4 +1,6 @@
 const axios = require("axios");
+const defaultAvatar = 'https://storage.googleapis.com/aoe3-companion.appspot.com/public/flag_random_1x1.png'
+const steamDefaultHash = 'fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb'
 
 
 async function avatarURL(steamID) {
@@ -11,7 +13,8 @@ async function avatarURL(steamID) {
     });
     if (!resp.data) return null
     const [user] = resp.data.response.players;
-    if (!user) return ''
+    if (!user) return defaultAvatar
+    if (user.avatarhash === steamDefaultHash) return defaultAvatar
     return user.avatarfull;
   } catch (error) {
     console.log(error);

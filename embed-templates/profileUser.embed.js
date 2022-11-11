@@ -6,7 +6,6 @@ TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
 const winRate = (wins, losses) => ((wins / (wins + losses)) * 100).toFixed(2)
-const defaultAvatar = 'https://aoe3-companion.web.app/assets/discord-rank-bot/resources_images_icons_techs_mexicans_guerrilla_tactics.png'
 
 const generateProfileEmbed = (stats, modo) => {
     const clan = stats.clan ? `[${stats.clan}] ` : ''
@@ -15,7 +14,7 @@ const generateProfileEmbed = (stats, modo) => {
         .setColor(0xebc837)
         .setTitle(`${clan}${stats.name}`)
         .setAuthor({ name: `⚔️ ${modosEn[modo] || ''} ⚔️` })
-        .setThumbnail(stats.avatar || defaultAvatar)
+        .setThumbnail(stats.avatar)
 
     embed
         .addFields(
@@ -27,7 +26,7 @@ const generateProfileEmbed = (stats, modo) => {
             { name: 'Games', value: `🕹️ ${stats.wins + stats.losses}`, inline: true },
             { name: 'Win Rate', value: `📊 ${winRate(stats.wins, stats.losses)}%`, inline: true },
         )
-        .setFooter({ 'text': `Last online ${timeAgo.format(new Date(stats.lastOnline * 1000))}` })
+        .setFooter({ 'text': `Last game ${timeAgo.format(new Date(stats.lastOnline * 1000))}` })
 
     return embed
 }
