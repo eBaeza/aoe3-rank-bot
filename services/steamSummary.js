@@ -3,19 +3,19 @@ const defaultAvatar = 'https://storage.googleapis.com/aoe3-companion.appspot.com
 const steamDefaultHash = 'fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb'
 
 
-async function avatarURL(steamID) {
+async function steamSummary(steamID) {
   try {
     const resp = await axios.get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/', {
-        params: {
-            key: process.env.STEAM_KEY,
-            steamids: steamID
-        }
+      params: {
+        key: process.env.STEAM_KEY,
+        steamids: steamID
+      }
     });
     if (!resp.data) return null
     const [user] = resp.data.response.players;
-    if (!user) return defaultAvatar
-    if (user.avatarhash === steamDefaultHash) return defaultAvatar
-    return user.avatarfull;
+    if (!user) return { avatarfull: defaultAvatar }
+    if (user.avatarhash === steamDefaultHash) return { ...user, avatarfull: defaultAvatar }
+    return user;
   } catch (error) {
     console.log(error);
     return null;
@@ -23,5 +23,5 @@ async function avatarURL(steamID) {
 }
 
 module.exports = {
-    avatarURL
+  steamSummary
 };

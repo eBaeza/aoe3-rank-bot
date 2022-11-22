@@ -16,6 +16,10 @@ const generateProfileEmbed = (stats, modo) => {
         .setAuthor({ name: `⚔️ ${modosEn[modo] || ''} ⚔️` })
         .setThumbnail(stats.avatar)
 
+    if (stats.profileurl) {
+        embed.setURL(stats.profileurl)
+    }
+
     embed
         .addFields(
             { name: 'Rank', value: `🎖️ #${stats.rank}`, inline: true },

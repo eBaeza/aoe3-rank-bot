@@ -2,7 +2,7 @@ const { SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder, ComponentType 
 const leaderboarSvc = require('../services/hellpunch.service')
 const { GAME_MODES, modosEn, modosEs } = require('../constants')
 const { generateResultsListEmbed } = require('../embed-templates/resultsList.embed')
-const { avatarURL } = require('../services/steamSummary')
+const { steamSummary } = require('../services/steamSummary')
 const { generateProfileEmbed } = require('../embed-templates/profileUser.embed')
 
 module.exports = {
@@ -73,8 +73,9 @@ module.exports = {
             collector.on('collect', async i => {
                 const [index] = i.values
                 const stats = players[+index]
-                const avatar = await avatarURL(stats.steamId)
-                stats.avatar = avatar
+                const { avatarfull, profileurl } = await steamSummary(stats.steamId)
+                stats.avatar = avatarfull
+                stats.profileurl = profileurl
 
                 await i.update({
                     content: `Player found by "_**${player.value}**_" search term`,

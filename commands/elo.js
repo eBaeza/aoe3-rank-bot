@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('discord.js')
 const leaderboarSvc = require('../services/hellpunch.service')
 const { generateProfileEmbed } = require('../embed-templates/profileUser.embed')
 const { modosEn, modosEs, GAME_MODES } = require('../constants')
-const { avatarURL } = require('../services/steamSummary')
+const { steamSummary } = require('../services/steamSummary')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -46,8 +46,9 @@ module.exports = {
                 .catch(error => { console.log(error) });
 
         } else {
-            const avatar = await avatarURL(stats.steamId)
-            stats.avatar = avatar
+            const { avatarfull, profileurl } = await steamSummary(stats.steamId)
+            stats.avatar = avatarfull
+            stats.profileurl = profileurl
             await interaction
                 .reply(
                     { embeds: [generateProfileEmbed(stats, modo.value)] }
