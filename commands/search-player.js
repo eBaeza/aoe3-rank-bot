@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder, ComponentType } = require('discord.js')
+const { SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder, ComponentType } = require('discord.js')
 const leaderboarSvc = require('../services/hellpunch.service')
 const { GAME_MODES, modosEn, modosEs } = require('../constants')
 const { generateResultsListEmbed } = require('../embed-templates/resultsList.embed')
@@ -45,7 +45,7 @@ module.exports = {
         } else {
             const row = new ActionRowBuilder()
                 .addComponents(
-                    new SelectMenuBuilder()
+                    new StringSelectMenuBuilder()
                         .setCustomId('selectedPlayer')
                         .setPlaceholder('Select a player')
                         .addOptions(

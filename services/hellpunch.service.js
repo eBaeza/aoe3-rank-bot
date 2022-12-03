@@ -7,6 +7,7 @@ async function leaderboarSvc(searchValue = '', { modo = '1vs1', field = 'name' }
     const cfg = {
       headers: {
         'apikey': process.env.API_KEY,
+        'Accept-Encoding': 'identity'
       },
       params: {},
       transformResponse: [data => data]
