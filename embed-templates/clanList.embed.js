@@ -14,14 +14,11 @@ const generateClanListEmbed = (players, modo) => {
     const fields = []
 
     players.forEach((player, idx) => {
-        fields.push({
-            name: `${idx + 1}. ${player?.name}`,
-            value: `🎖️ #${player.rank} 🛡️ ELO: ${player?.elo}`
-        })
+        fields.push(`**${idx + 1}. ${player?.name}**\n🎖️ #${player.rank} 🛡️ ELO: ${player?.elo}`)
     })
 
     embed
-        .addFields(...fields)
+        .setDescription(fields.join('\n\n'))
 
     return embed
 }
