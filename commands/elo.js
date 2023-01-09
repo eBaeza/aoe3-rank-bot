@@ -55,16 +55,5 @@ module.exports = {
                 )
                 .catch(error => { console.log(error) });
         }
-
-        if (player.value.toLowerCase().trim() === 'kaiserklein') {
-            await interaction.followUp(`*I need more baguettes!* 🥖🥖🥖`).catch(error => { console.log(error) });
-            return
-        }
-
-        if (player.value.toLowerCase().trim() === 'ezad') {
-            await interaction.followUp(`*Balloon!* 🎈🎈🎈`).catch(error => { console.log(error) });
-            return
-        }
-
     }
 }
