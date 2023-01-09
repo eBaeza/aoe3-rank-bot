@@ -24,11 +24,13 @@ const generateProfileEmbed = (stats, modo) => {
         .addFields(
             { name: 'Rank', value: `🎖️ #${stats.rank}`, inline: true },
             { name: 'ELO', value: `🛡️ ${stats.elo}`, inline: true },
-            { name: 'Streak', value: `${stats.streak > 0 ? "📈" : "📉"} ${stats.streak > 0 ? "+" : ""}${stats.streak}`, inline: true },
+            { name: '\u200B', value: '\u200B', inline: true },
             { name: 'Wins', value: `🟢 ${stats.wins}`, inline: true },
             { name: 'Losses', value: `🔴 ${stats.losses}`, inline: true },
             { name: 'Games', value: `🕹️ ${stats.wins + stats.losses}`, inline: true },
+            { name: 'Streak', value: `${stats.streak > 0 ? "📈" : "📉"} ${stats.streak > 0 ? "+" : ""}${stats.streak}`, inline: true },
             { name: 'Win Rate', value: `📊 ${winRate(stats.wins, stats.losses)}%`, inline: true },
+            { name: 'Drops', value: `❌ ${stats.drops}`, inline: true },
         )
         .setFooter({ 'text': `Last game ${timeAgo.format(new Date(stats.lastOnline * 1000))}` })
 
